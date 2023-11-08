@@ -1,0 +1,29 @@
+Status: Changes Requested
+
+Allowing the user to choose specific linters is a great idea to satisfy the variety of needs of the potential users. Including short codes associated with the linters is also a viable approach. In regards to the code submitted, there are a few improvements that should be made.
+
+Commit: New short codes added for each linter
+
+File: jenkins_job_linter/__init__.py
+
+	Problem: Having the user choose which linters they want to select and ignore can seem like a sound idea but proves to be unnecessary and slightly confusing. For example, if a user chooses to select linters 1-3 and ignore 5-7, what happens with linter 4?
+
+	Solution: Only implement select or ignore. If you only implement select, only the linters that are selected will run and the rest will be ignored. On the other hand, if you only implement ignore, all linters except the ones ignored will run.
+
+File: jenkins_job_linter/linters.py
+
+	Problem: Short code 'L006' is applied to two classes: ShellBuilderLinter and CheckForEmptyShell. While the two classes seem to interact together with a shared purpose, it's inconsistent with the other short codes listed only once.
+
+	Solution: Remove the short code field in the ShellBuilderLinter class, or merge the two classes into one.
+
+Commit: Add linter short codes to documentation
+	
+File: docs/source/running.rst
+
+	Problem: Line 10: Adding "lint-directory" to the command isn't handled anywhere else in the newly committed code. I may be mistaken, but this will cause the program to interpret "lint-directory" as the path.
+
+	Solution: Make necessary changes where the argument is handled. This will also solve the issue with misinterpreting "list-linters" as well.
+
+	Problem: Lines 20-22: The purpose of this commit was to add short codes to documentation, and mentioning this command is inconsistent with that purpose.
+
+	Solution: Mention the command in the commit message, or remove it from this one.
